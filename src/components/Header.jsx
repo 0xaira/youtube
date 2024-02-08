@@ -3,14 +3,21 @@ import logo from "../img/logo.png";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
 import '../index.css';
+import { useDispatch } from 'react-redux';
+import { toggleMenu } from '../utils/appSlice';
 
 const Header = () => {
+   const dispatch = useDispatch();
+    const toggleMenuHandler = () => {
+        dispatch(toggleMenu());
+    }
+
     return (
         <>
             <div className='flex items-center justify-between h-16 bg-white shadow-md px-6'>
                 {/* Left section */}
                 <div className='flex items-center gap-4'>
-                    <MenuIcon className='h-8 w-8 text-gray-800' />
+                    <MenuIcon className='h-8 w-8 text-gray-800 cursor-pointer' onClick = {() => toggleMenuHandler()} />
                     <img src={logo} className='h-12' alt="logo" />
                 </div>
 
