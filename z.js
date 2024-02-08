@@ -7,4 +7,13 @@ Requirement Clarifiations: 5 mins
 
 Planning: 5 mins
 
+
+Header
+Body
+  SideBarr
+    MenuItems
+  Main Container 
+    ButtonLists
+    Video Conatiner 
+       Video Cards
 */
