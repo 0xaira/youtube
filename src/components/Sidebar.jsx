@@ -1,93 +1,31 @@
-import React from 'react'
+import React from 'react';
 import { useSelector } from 'react-redux';
+import { categories } from './sideBarItems';
+
 const Sidebar = () => {
     const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
+
     if (!isMenuOpen) {
         return null;
     }
+
+    return (
+        
+        <div className="w-64  h-full border-r border-gray-200 fixed left-0 mt-16 bg-white">
+            
+            <div className="p-4">
+                {categories.map((category, index) => (
+                    <div key={index} className="py-2 border-b border-gray-200">
+                        <div className="flex items-center gap-3">
+                            {category.icon}
+                            <span>{category.name}</span>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
     
-  return (
+    );
+};
 
-    <>
-    <div className='w-48'>
-    <div>
-    <h1 className='font-bold'>DUMMY HEADER</h1>
-    <ul>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-    </ul>
-    </div>
-
-<div>
-<h1 className='font-bold'>DUMMY HEADER</h1>
-<ul>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-</ul>
-</div>
-
-<div>
-    <h1 className='font-bold'>DUMMY HEADER</h1>
-    <ul>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-    </ul>
-    </div>
-
-<div>
-<h1 className='font-bold'>DUMMY HEADER</h1>
-<ul>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-</ul>
-</div>
-
-<div>
-    <h1 className='font-bold'>DUMMY HEADER</h1>
-    <ul>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-        <li>TEMP DATA</li>
-    </ul>
-    </div>
-
-<div>
-<h1 className='font-bold'>DUMMY HEADER</h1>
-<ul>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-    <li>TEMP DATA</li>
-</ul>
-</div>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum temporibus eligendi molestiae amet est impedit. Aut aperiam exercitationem libero explicabo.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum temporibus eligendi molestiae amet est impedit. Aut aperiam exercitationem libero explicabo.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adibo.</p>
-</div>
-</>
-  )
-}
-
-export default Sidebar
+export default Sidebar;

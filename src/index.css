@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.user-icon {
-    height: 100px;
-}
+  .stroke {
+    max-height: 380px;
+    background: #d6d6d6;
+  }
+  .animate {
+    animation: shimmer 3s;
+    animation-iteration-count: infinite;
+    background: linear-gradient(to right, #e6e6e6 5%, #cccccc 25%, #e6e6e6 35%);
+    background-size: 1000px 100%;
+  }
+

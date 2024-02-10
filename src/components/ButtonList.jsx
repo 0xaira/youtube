@@ -2,7 +2,6 @@ import React from 'react';
 import Buttons from './Buttons';
 
 const ButtonList = () => {
-  // List of names for YouTube main page buttons
   const buttonNames = [
     "Home",
     "Trending",
@@ -14,21 +13,24 @@ const ButtonList = () => {
     "Watch Later",
     "Liked Videos",
     "Music",
-    "Gaming",
-    "News",
-    "Live",
-    "Fashion",
-    "Learning",
-    "Spotlight",
-    "360° Video",
+    // "Gaming",
+    // "News",
+    // "Live",
+    // "Fashion",
+    // "Learning",
+    // "Spotlight",
+    // "360° Video",
   ];
 
   return (
     <>
-      {buttonNames.map((name, index) => (
-        <Buttons key={index} name={name} />
-        
-      ))}
+      {/* <div className="fixed  z-50 "> */}
+        <div className='flex pl-48  '>
+          {buttonNames.map((name, index) => (
+            <Buttons key={index} name={name} />
+          ))}
+        </div>
+      {/* </div> */}
     </>
   );
 };
