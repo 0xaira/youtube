@@ -3,22 +3,46 @@ import logo from "../img/logo.png";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
 import '../index.css';
-import { useDispatch } from 'react-redux';
 import { toggleMenu } from '../utils/appSlice';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
-
+import { cacheResults } from "../utils/searchSlice";
 const Header = () => {
-    const dispatch = useDispatch();
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery, setSearchQuery] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
+  
+    const searchCache = useSelector((store) => store.search);
+    const dispatch = useDispatch();
+    
     useEffect(() => {
         const timer = setTimeout(() => {
-            searchSuggestions();
+          if (searchCache[searchQuery]) {
+            setSuggestions(searchCache[searchQuery]);
+          } else {
+            getSearchSugsestions();
+          }
         }, 200);
-        return () => clearTimeout(timer);
-    }, [searchQuery]);
+    
+        return () => {
+          clearTimeout(timer);
+        };
+      }, [searchQuery]);
+    
+      const getSearchSugsestions = async () => {
+        const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+        const json = await data.json();
+        //console.log(json[1]);
+        setSuggestions(json[1]);
+    
+        // update cache
+        dispatch(
+          cacheResults({
+            [searchQuery]: json[1],
+          })
+        );
+      };
 
     const toggleMenuHandler = () => {
         dispatch(toggleMenu());
@@ -27,7 +51,17 @@ const Header = () => {
     const searchSuggestions = async () => {
         const response = await fetch(YOUTUBE_SEARCH_API + searchQuery);
         const data = await response.json();
-        console.log(data[1]);
+        if (data && data[1]) {
+            setSuggestions(data[1]);
+        }
+    }
+
+    const handleMouseEnter = () => {
+        setShowSuggestions(true);
+    }
+
+    const handleMouseLeave = () => {
+        setShowSuggestions(false);
     }
 
     return (
@@ -41,7 +75,7 @@ const Header = () => {
                 </div>
 
                 {/* Middle section */}
-                <div>
+                <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                     <div className="group flex items-center">
                         <div className="flex h-8 md:h-10 md:ml-10 md:pl-5 border border-[#404040] rounded-l-3xl group-focus-within:border-blue-500 md:group-focus-within:ml-5 md:group-focus-within:pl-0 ">
                             <div className="w-10 justify-center items-center hidden group-focus-within:md:flex">
@@ -65,13 +99,15 @@ const Header = () => {
                     </div>
 
                     {/* Temp Data List */}
-                    <div className='bg-gray-200 ml-[200px] fixed'>
-                        <ul className='space-y-2'>
-                            {suggestions.map((suggestion, index) => (
-                                <li key={index} className='p-2 hover:bg-gray-300 cursor-pointer'>{suggestion}</li>
-                            ))}
-                        </ul>
-                    </div>
+                    {showSuggestions && (
+                        <div className='bg-white rounded-lg ml-12 fixed w-[512px]' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                            <ul className='space-y-2 p-4'>
+                                {suggestions.map((suggestion, index) => (
+                                    <li key={index} className=''>{suggestion}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </div>
 
 
