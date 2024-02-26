@@ -10,6 +10,7 @@ const MainContainer = () => {
     <div className={isMenuOpen ? "pl-24 mt-16" : "mt-16"} >
       <ButtonList />
       <VideoContainer />
+
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 
-// Sample comments data with meaningful names, IDs, and nesting levels
 const commentsData = [
   {
     id: 1,
@@ -81,7 +80,6 @@ const commentsData = [
   },
 ];
 
-// Comment component to display individual comments
 const Comment = ({ data, level }) => {
   const { id, name, text, replies } = data;
 
@@ -95,7 +93,6 @@ const Comment = ({ data, level }) => {
         </div>
       </div>
       <div className="pl-8 border-l border-gray-400 mt-2">
-        {/* Recursively render replies */}
         {replies.map((reply) => (
           <Comment key={reply.id} data={reply} level={level + 1} />
         ))}
